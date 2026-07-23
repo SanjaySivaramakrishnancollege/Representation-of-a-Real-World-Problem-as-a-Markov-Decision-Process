@@ -1,185 +1,87 @@
-# Representation-of-a-Real-World-Problem-as-a-Markov-Decision-Process
+## Exp-1
+# MDP REPRESENTATION ->
+## AIM:
+To design an MDP representation for a delivery drone navigating a city to deliver a parcel to a customer's address.
 
-
-## Aim
-
-Write your aim here.
-
-Example:
-
-> To identify a real-world sequential decision-making problem and represent it formally as a Markov Decision Process by defining its states, actions, rewards, transitions, and Python representation.
-
----
-
-## Problem Statement
+## PROBLEM STATEMENT:
+The MDP representation of a delivery drone that must fly from a pickup hub, collect a parcel, and navigate through city airspace to reach a customer's delivery address while avoiding no-fly zones (restricted obstacle regions).
 
 ### Problem Description
+To deliver a parcel from the hub (pickup point) to the customer's delivery address while avoiding no-fly zones in the city airspace.
 
-Write your answer here.
-
-Describe the real-world application that you selected.
-
-
----
-
-## MDP Components
-
-A Markov Decision Process is represented as:
-
-$$
-MDP = (S, A, P, R, \gamma)
-$$
-
-Where:
-
-| Symbol | Meaning |
-|---|---|
-| $S$ | Set of states |
-| $A$ | Set of actions |
-| $P$ | Transition probability function |
-| $R$ | Reward function |
-| $\gamma$ | Discount factor |
-
----
-
-## State Space
-
-Write your answer here.
-
-The state space should list all possible situations in which the agent can exist.
-
-Example format:
-
-```text
-S = {
-    State 1,
-    State 2,
-    State 3,
-    ...
-}
+### State Space
+```
+I.   The drone's current position.
+II.  The location of the parcel pickup hub.
+III. The customer's delivery address (goal position).
+IV.  The positions of no-fly zones (obstacles) in the city.
 ```
 
-
-
----
-
-## Sample State
-
-Write your answer here.
-
-A sample state is one specific example from the state space.
-
-
-
----
-
-## Action Space
-
-Write your answer here.
-
-The action space should list all possible actions available to the agent.
-
-Example format:
-
-```text
-A = {
-    Action 1,
-    Action 2,
-    Action 3,
-    ...
-}
+### Sample State
+```
+1. The drone is at position 1.
+2. The parcel pickup hub is at position 3.
+3. The delivery address is at position 4.
+4. No-fly zones (obstacles) are at positions 2.
 ```
 
+### Action Space
+```
+0   ->>  Hover (Same State)
+1   ->>  Left
+2   ->>  Down
+3   ->>  Right
+4   ->>  Up
+```
 
----
+### Sample Action
+0 -> 3 -> 3 -> 1
 
-## Sample Action
+### Reward Function
+```
+1. +1 for successfully delivering the parcel to the delivery address.
+2. 0 for hovering, hitting a no-fly zone, or being at the start/pickup state.
+```
 
-Write your answer here.
+### Graphical Representation
+*(Insert the state-transition diagram image here, showing positions 1–4 with the drone's path from hub to delivery address, marking the no-fly zone.)*
 
-A sample action is one action selected from the action space.
-
-
-
----
-
-## Transition Probability
-
-Write your answer here.
-
-The transition probability explains how the environment moves from one state to another after an action is taken.
-
-General form:
-
-$$
-P(s' \mid s,a)
-$$
-
-This means:
-
-> Probability of reaching next state $s'$ after taking action $a$ in current state $s$.
-
-
----
-
-## Reward Function
-
-Write your answer here.
-
-The reward function defines the feedback received by the agent after taking an action.
-
-General form:
-
-$$
-R(s,a,s')
-$$
-
-
-
----
-
-## Graphical Representation
-
-Write your answer here.
-
-Draw the MDP graph.
-
-The graph should include:
-
-1. States as nodes.
-2. Actions as arrows.
-3. Rewards on transitions.
-4. Transition probabilities if applicable.
-
-
----
-
-## Python Representation
-
-Write your code here.
-
-Use Python dictionaries to represent the MDP.
-
-
+## PYTHON REPRESENTATION:
 ```python
-# MDP Representation using Python
-# print("Name:       ")
-# print("Register Number:     ")
-
+p = {
+    1: {
+        0: [(1, 1, 0, False)],
+        1: [(1, 1, 0, False)],
+        2: [(0.7, 3, 0, True), (0.3, 2, 0, False)],
+        3: [(0.3, 2, 0, False), (0.7, 3, 0, True)],
+        4: [(1, 1, 0, False)]
+    },
+    2: {
+        0: [(1, 2, 0, True)],
+        1: [(1, 2, 0, True)],
+        2: [(1, 2, 0, True)],
+        3: [(1, 2, 0, True)],
+        4: [(1, 2, 0, True)]
+    },
+    3: {
+        0: [(1, 3, 0, False)],
+        1: [(1, 3, 0, False)],
+        2: [(1, 3, 0, False)],
+        3: [(0.98, 4, 1, True), (0.7, 1, 0, False)],
+        4: [(0.7, 1, 0, False), (0.98, 4, 1, True)]
+    },
+    4: {
+        0: [(1, 4, 0, True)],
+        1: [(1, 4, 0, True)],
+        2: [(1, 4, 0, True)],
+        3: [(1, 4, 0, True)],
+        4: [(1, 4, 0, True)]
+    }
+}
 ```
----
-## Output
 
-Write your Python output here.
+## OUTPUT:
 
 
----
-
-## Result
-
-Write your result here.
-
-
-
----
-
+## RESULT:
+Thus, the MDP representation of a delivery drone navigating a city to deliver a parcel to a customer's address, while avoiding no-fly zones and minimizing flight time, is successfully executed.
